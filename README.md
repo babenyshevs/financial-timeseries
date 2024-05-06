@@ -96,7 +96,14 @@ Project Organization
 ## create and activate virtual environment
 
     python -m venv .venv
+
+for windows use
+
     .venv/Scripts/activate
+
+for mac use
+    
+    source .venv/bin/activate
 
 ## create GIT repo
 
