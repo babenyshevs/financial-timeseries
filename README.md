@@ -3,10 +3,19 @@ financial-time-series-prediction
 
 EDA, showcasing different apporaches for time series forecast
 
-Dataset
+## What's done:
+- stationariness analysis
+- EDA (multivariate analysis)
+- baseline Time series pridctions with SARIMAX
+
+## Work in progress
+- prediction with sequantial models
+
+
+Comments to the task
 ------------
 ## I
-**SBA: TL;DR: It seems like author mixing up description of the dataset (columns, idecies and their meanings) and description of how this dataset is collected, i.e. order in which data arrive from traiding platform (or whatever is a source). In such case it's benefitial (and less confusing) to provide targets set and features set separetely. Both with timestamps for each observation.**
+**SBA: TL;DR: Task description seems to be mixture of dataset description (columns, idecies and their meanings) and description of how this dataset is collected, i.e. order in which data arrive from traiding platform (or whatever is a source). Clarification is needed.**
 
 1. Index is a CE(S)T-localized (**SBA: removed it below to make text more readable**) DatetimeIndex in hourly resoluton startng from 2023-01-16 01:00 to 2023-09-25 00:00. It represents the target time (**SBA: why *target* time? Is it different from *feature* time?**) but is not necessarily contiguous.
 2. It has 6048 rows.
@@ -28,11 +37,11 @@ The dataset contains a multi-dimensional timeseries, but it is not a conventiona
 1. On day D-1 at 11:30, prediction is done at once for the below 24 hours (**SBA: hereinafter *prediction window* for short**):
     1. Day *D 01:00 - D 23:00*
     2. Day *D+1 00:00*
-2. Then on the same day *D-1 13:00*, the 24 realized *z* helper column values for day *D 01:00 … D+1 00:00* are published at once. This means that realized *z* values are not known as the target time (hours) pass one after another, but they are known the day before (**SBA: the day before WHAT? Day D? It's not entirely true, because as 1st sentence states they are published at 13:00 (not 00:00)**) (for target time day D+2 00:00, two days before). (**SBA: *z* values are published for *D 01:00 … D+1 00:00*. Which D+2 author is talking about?**)
-3. However, target variable *y* values are known one by one some time (**SBA: how much is "some time"?**) after the target time (hour) is passed (**SBA: What's the definition of target time? To my understanding target time is when we know the value of a target.**).
+2. Then on the same day *D-1 13:00*, the 24 realized *z* helper column values for day *D 01:00 … D+1 00:00* are published at once. This means that realized *z* values are not known as the target time (hours) pass one after another, but they are known the day before (**SBA: the day before WHAT? Day D? It's not entirely true, because as 1st sentence states they are published at 13:00 (not 00:00)**) (for target time day D+2 00:00, two days before). (**SBA: *z* values are published for *D 01:00 … D+1 00:00*. Which D+2?**)
+3. However, target variable *y* values are known one by one some time (**SBA: how much is "some time"?**) after the target time (hour) is passed (**SBA: What's the definition of target time? Expected that *target time* is when we know the value of a target.**).
 4. This batch dynamic can be seen when looking at the values of *x_y_lagged* as compared to *y*, and the values of *x_z_lagged* as compared to *z*. (**SBA: According to data *y*<sub>D</sub> == *x_y_lagged*<sub>D+2</sub>. Quite straightforward.**)
 5. This schedule needs to be taken into consideration to correctly use lagged values of other features, as illustrated by the following:
-    1. On day D (**SBA: typo? it should be D-1 according to section III, 1**) at prediction time, all 32 feature values corresponding to the 24 to-be-predicted hours day D 01:00 … day D+1 00:00 are available and known at once. (**SBA: those 32 feature values are for timestamp D-1 11:30. What about other 23 hours? Are they useless for prediction?**)
+    1. On day D (**SBA: typo? it should be D-1 according to section III, 1**) at prediction time, all 32 feature values corresponding to the 24 to-be-predicted hours day D 01:00 … day D+1 00:00 are available and known at once. (**SBA: those 32 feature values are for timestamp D-1 11:30. What about other 23 hours?**)
     2. This means that for a given feature *x* corresponding to target time day *D* hour *n*, not only “past” lagged values from before day *D* hour *n-1* could be used, but also “future” lagged values from day *D* hour *n+1* to day *D+1 00:00*, but not further, because feature *x*’s value corresponding to day *D+1 01:00* and beyond is not known at prediction time on day *D-1.*
     3. Of course, given the batch nature of the underlying timeseries, these “future” values are not actually future values but are known at prediction time.
     4. Just to reiterate, the above is true for *x_y_lagged* and *x_z_lagged* as they are features, but is not the case for *y* and *z*.
@@ -41,7 +50,6 @@ Project Organization
 ------------
 
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── external       <- Data from third party sources.
@@ -51,11 +59,11 @@ Project Organization
     │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
+    ├── models             <- Trained and serialized models, model summaries (MLFlow artifacts)
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    │                         `1.0-sba-initial-data-exploration`.
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │

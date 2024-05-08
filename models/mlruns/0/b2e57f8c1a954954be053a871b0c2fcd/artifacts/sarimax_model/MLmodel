@@ -1,0 +1,18 @@
+artifact_path: sarimax_model
+flavors:
+  python_function:
+    data: model.statsmodels
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.statsmodels
+    python_version: 3.10.9
+  statsmodels:
+    code: null
+    data: model.statsmodels
+    statsmodels_version: 0.14.2
+mlflow_version: 2.11.3
+model_size_bytes: 75785181
+model_uuid: 60a39539e2e9422380a67a4adb50699f
+run_id: b2e57f8c1a954954be053a871b0c2fcd
+utc_time_created: '2024-05-08 11:31:12.831514'
