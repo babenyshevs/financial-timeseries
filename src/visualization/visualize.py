@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_line(df, x, y, title="Time Series Plot"):
@@ -18,5 +19,24 @@ def plot_line(df, x, y, title="Time Series Plot"):
     plt.title(title)
     plt.xlabel(x)
     plt.ylabel(y)
+    plt.grid(True)
+    plt.show()
+
+
+def plot_actual_vs_predicted(y: np.ndarray, y_pred: np.ndarray) -> None:
+    """
+    Plots the actual values against the predicted values.
+
+    Args:
+        y (np.ndarray): The actual values.
+        y_pred (np.ndarray): The predicted values.
+    """
+    plt.figure(figsize=(10, 6))
+    plt.plot(y, label="Actual")
+    plt.plot(y_pred, label="Predicted")
+    plt.title("Actual vs Predicted")
+    plt.xlabel("Index")
+    plt.ylabel("Value")
+    plt.legend()
     plt.grid(True)
     plt.show()
