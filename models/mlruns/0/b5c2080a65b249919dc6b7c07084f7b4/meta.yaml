@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/_root/_personal/_repos/financial-timeseries/notebooks/../models/mlruns/0/b5c2080a65b249919dc6b7c07084f7b4/artifacts
+end_time: 1715195485071
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b5c2080a65b249919dc6b7c07084f7b4
+run_name: LSTM
+run_uuid: b5c2080a65b249919dc6b7c07084f7b4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1715195384831
+status: 3
+tags: []
+user_id: BABENYSHEVS

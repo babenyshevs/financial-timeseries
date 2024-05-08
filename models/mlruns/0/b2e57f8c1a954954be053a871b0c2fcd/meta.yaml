@@ -4,7 +4,7 @@ entry_point_name: ''
 experiment_id: '0'
 lifecycle_stage: active
 run_id: b2e57f8c1a954954be053a871b0c2fcd
-run_name: unleashed-tern-276
+run_name: SARIMAX
 run_uuid: b2e57f8c1a954954be053a871b0c2fcd
 source_name: ''
 source_type: 4
